@@ -73,5 +73,16 @@ namespace SmartcoinTest
             Assert.AreEqual(d, true);
 
         }
+
+        [Test]
+        public void CanRetrievePlan()
+        {
+            var c = GenerateInstance();
+            var cr = c.Create();
+
+            var r = Plan.Get(cr.Id);
+            Assert.IsNotEmpty(r.Id);
+            Assert.AreEqual(cr.Id, r.Id);
+        }
     }
 }
