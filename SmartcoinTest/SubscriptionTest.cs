@@ -81,5 +81,22 @@ namespace SmartcoinTest
             Assert.AreEqual(cg.Id, r.Id);
             Assert.AreEqual("canceled", r.Status);
         }
+
+        [Test]
+        public void CanListSubscriptions()
+        {
+            var subscriptions = Subscription.ListAll();
+            Assert.GreaterOrEqual(subscriptions.TotalCount, 0);
+        }
+
+        [Test]
+        public void CanListCustomerSubscriptions()
+        {
+            Customer cus = CustomerTest.GenerateInstance();
+            cus = cus.Create();
+
+            var subscriptions = Subscription.ListAll(cus.Id);
+            Assert.GreaterOrEqual(subscriptions.TotalCount, 0);
+        }
     }
 }
