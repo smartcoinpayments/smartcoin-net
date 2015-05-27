@@ -106,6 +106,14 @@ namespace Smartcoin.Entities
         {
             return Serializer.FromJson<SmartcoinList<Subscription>>(SmartcoinRequester.Get(SmartcoinContext.BASE_ENDPOINT + "/v1/subscriptions"));
         }
+
+        public static SmartcoinList<Subscription> ListAll(string CustomerId)
+        {
+            return Serializer.FromJson<SmartcoinList<Subscription>>(SmartcoinRequester.Get(
+                SmartcoinContext.BASE_ENDPOINT + "/v1/customers/"
+                + CustomerId + "/subscriptions"
+            ));
+        }
         #endregion
     }
 }
