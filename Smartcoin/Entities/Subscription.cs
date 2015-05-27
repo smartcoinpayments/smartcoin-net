@@ -111,7 +111,7 @@ namespace Smartcoin.Entities
         {
             return Serializer.FromJson<SmartcoinList<Subscription>>(SmartcoinRequester.Get(
                 SmartcoinContext.BASE_ENDPOINT + "/v1/customers/"
-                + CustomerId + "subscriptions"
+                + CustomerId + "/subscriptions"
             ));
         }
         #endregion
