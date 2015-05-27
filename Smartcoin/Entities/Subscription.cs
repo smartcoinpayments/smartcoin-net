@@ -101,6 +101,11 @@ namespace Smartcoin.Entities
         {
             return FromJson(SmartcoinRequester.Delete(SmartcoinContext.BASE_ENDPOINT + "/v1/customers/" + obj.Customer + "/subscriptions/" + obj.Id, obj.ToCancel()));
         }
+
+        public static SmartcoinList<Subscription> ListAll()
+        {
+            return Serializer.FromJson<SmartcoinList<Subscription>>(SmartcoinRequester.Get(SmartcoinContext.BASE_ENDPOINT + "/v1/subscriptions"));
+        }
         #endregion
     }
 }

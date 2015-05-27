@@ -172,7 +172,7 @@ namespace Smartcoin.Entities
             return FromJson(SmartcoinRequester.Get(SmartcoinContext.BASE_ENDPOINT + "/v1/charges/" + id));
         }
 
-        public static SmartcoinList<Charge> ListAll(int? count = null, int? ofsset = null, int? created = null)
+        public static SmartcoinList<Charge> ListAll(int? count = null, int? offset = null, string created_operator = null, DateTime? created = null)
         {
             StringBuilder stb = new StringBuilder();
             var init = "?";
@@ -181,16 +181,31 @@ namespace Smartcoin.Entities
                 stb.AppendFormat("{0}count={1}", init, count.ToString());
                 init = "&";
             }
-            if (ofsset != null)
+            if (offset != null)
             {
-                stb.AppendFormat("{0}ofsset={1}", init, ofsset.ToString());
+                stb.AppendFormat("{0}offset={1}", init, offset.ToString());
                 init = "&";
             }
             if (created != null)
             {
-                stb.AppendFormat("{0}created={1}", init, created.ToString());
+                var op = "gte";
+                switch(created_operator){
+                    case ">":
+                        op = "gt";
+                        break;
+                    case "<":
+                        op = "lt";
+                        break;
+                    case "<=":
+                        op = "lte";
+                        break;
+                }
+
+
+                stb.AppendFormat("{0}created={1}:{2}", init, op, created.Value.ToString("yyyy-MM-dd"));
                 init = "&";
             }
+
             return Serializer.FromJson<SmartcoinList<Charge>>(SmartcoinRequester.Get(SmartcoinContext.BASE_ENDPOINT + "/v1/charges" + stb.ToString()));
         }
 

@@ -11,7 +11,6 @@ namespace SmartcoinTest
 {
     public class ChargeTest
     {
-
         public static Charge GenerateInstance(Card card = null, Customer customer = null, Token token = null, string type = "bank_slip")
         {
             var c = new Charge();
@@ -137,6 +136,28 @@ namespace SmartcoinTest
             var r = Charge.Get(cr.Id);
             Assert.IsNotEmpty(r.Id);
             Assert.AreEqual(cr.Id, r.Id);
+        }
+
+        [Test]
+        public void CanListAllCharges()
+        {
+            var charges = Charge.ListAll();
+            Assert.Greater(charges.TotalCount, 0);
+        }
+
+        [Test]
+        public void CanPaginateChargesList()
+        {
+            var charges = Charge.ListAll(5, 0);
+            Assert.AreEqual(charges.Data.Count, 5);
+            Assert.Greater(charges.TotalCount, 0);
+        }
+
+        [Test]
+        public void CanQueryChargesList()
+        {
+            var charges = Charge.ListAll(5, 0, "<", new DateTime(2015, 5, 24));
+            Assert.GreaterOrEqual(charges.Data.Count, 1);
         }
     }
 }

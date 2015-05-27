@@ -12,7 +12,7 @@ namespace Smartcoin.Entities
         [JsonProperty("object")]
         public string Object { get; set; }
 
-        [JsonProperty("total_count")]
+        [JsonProperty("count")]
         public int TotalCount { get; set; }
 
         [JsonProperty("url")]
